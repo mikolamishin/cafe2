@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Delight — Кав’ярня твого міста</title>
+    <style>
+        :root {
+            --primary: #6F4E37;
+            --secondary: #ECB176;
+            --light: #FED8B1;
+            --dark: #3D2B1F;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #fdf5e6;
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav button {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: white;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        nav button:hover, nav button.active {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            min-height: 400px;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Стилі Меню */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .menu-item:hover {
+            transform: scale(1.02);
+            border-color: var(--secondary);
+        }
+
+        .menu-item h3 { margin: 10px 0; color: var(--primary); }
+
+        .menu-item input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* Калькулятор */
+        .order-summary {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 8px;
+            text-align: right;
+        }
+
+        .total-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: var(--dark);
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        .hero { text-align: center; padding: 40px 0; }
+        .hero h1 { font-size: 3rem; color: var(--primary); }
+
+        .btn-order {
+            background: var(--primary);
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>Coffee Delight</h2>
+    <p>Студент: [Ваше Ім'я], група [Ваша Група]</p>
+    <nav>
+        <button onclick="showSection('home')" id="btn-home" class="active">Головна</button>
+        <button onclick="showSection('menu')" id="btn-menu">Меню та Замовлення</button>
+        <button onclick="showSection('about')" id="btn-about">Про нас</button>
+        <button onclick="showSection('contacts')" id="btn-contacts">Контакти</button>
+    </nav>
+</header>
+
+<div class="container">
+    <section id="home" class="active">
+        <div class="hero">
+            <h1>Смак справжньої кави</h1>
+            <p>Ми обсмажуємо зерна власноруч, щоб кожен ваш ранок починався ідеально.</p>
+            <button class="btn-order" onclick="showSection('menu')">Перейти до меню</button>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2>Наше Меню</h2>
+        <p>Оберіть кількість позицій, і система автоматично розрахує вартість.</p>
+        
+        <div class="menu-grid" id="menu-container">
+            </div>
+
+        <div class="order-summary">
+            <h3>Ваше замовлення:</h3>
+            <div id="order-list">Ще нічого не обрано</div>
+            <hr>
+            <div class="total-price">Разом: <span id="total-sum">0</span> грн</div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>Історія Coffee Delight</h2>
+        <p>Наша кав'ярня була заснована у 2020 році як маленький сімейний бізнес. Сьогодні — це місце зустрічі творчих людей, студентів та поціновувачів якісного еспресо.</p>
+        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Інтер'єр" style="width:100%; border-radius:10px; margin-top:20px;">
+    </section>
+
+    <section id="contacts">
+        <h2>Як нас знайти</h2>
+        <p><strong>Адреса:</strong> м. Київ, вул. Кавова, 12</p>
+        <p><strong>Телефон:</strong> +38 (099) 123-45-67</p>
+        <p><strong>Графік роботи:</strong> Щодня з 08:00 до 21:00</p>
+    </section>
+</div>
+
+<footer>
+    <p>© 2026 Всі права захищені | Виконав: Мішин микола, група 4-14</p>
+</footer>
+
+<script>
+    // 1. Дані меню
+    const menuItems = [
+        { id: 'esp', name: 'Еспресо', price: 35, category: 'drink' },
+        { id: 'lat', name: 'Лате', price: 55, category: 'drink' },
+        { id: 'cap', name: 'Капучино', price: 50, category: 'drink' },
+        { id: 'crn', name: 'Круасан', price: 45, category: 'food' },
+        { id: 'chk', name: 'Чизкейк', price: 75, category: 'food' },
+        { id: 'tst', name: 'Тост з авокадо', price: 120, category: 'food' }
+    ];
+
+    // 2. Навігація між секціями
+    function showSection(sectionId) {
+        // Ховаємо всі секції
+        document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+        // Показуємо обрану
+        document.getElementById(sectionId).classList.add('active');
+        
+        // Оновлюємо кнопки навігації
+        document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('btn-' + sectionId).classList.add('active');
+    }
+
+    // 3. Генерація меню
+    function renderMenu() {
+        const container = document.getElementById('menu-container');
+        container.innerHTML = menuItems.map(item => `
+            <div class="menu-item">
+                <h3>${item.name}</h3>
+                <p>Ціна: ${item.price} грн</p>
+                <input type="number" min="0" value="0" 
+                       oninput="calculateTotal()" 
+                       id="input-${item.id}" 
+                       data-price="${item.price}" 
+                       data-name="${item.name}">
+            </div>
+        `).join('');
+    }
+
+    // 4. Калькулятор замовлення
+    function calculateTotal() {
+        let total = 0;
+        let orderDetails = [];
+        const inputs = document.querySelectorAll('.menu-item input');
+
+        inputs.forEach(input => {
+            const qty = parseInt(input.value) || 0;
+            const price = parseFloat(input.dataset.price);
+            const name = input.dataset.name;
+
+            if (qty > 0) {
+                total += qty * price;
+                orderDetails.push(`${name} x${qty} — ${qty * price} грн`);
+            }
+        });
+
+        // Оновлюємо інтерфейс
+        document.getElementById('total-sum').innerText = total;
+        const listContainer = document.getElementById('order-list');
+        
+        if (orderDetails.length > 0) {
+            listContainer.innerHTML = orderDetails.join('<br>');
+        } else {
+            listContainer.innerText = 'Ще нічого не обрано';
+        }
+    }
+
+    // Ініціалізація при завантаженні
+    window.onload = renderMenu;
+</script>
+
+</body>
+</html>
